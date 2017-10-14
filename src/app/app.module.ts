@@ -1,3 +1,6 @@
+import { AdminAuthGuard } from './admin-auth-guard.service';
+import { UserService } from './user.service';
+import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -44,17 +47,20 @@ import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
       {path:'', component:HomeComponent, pathMatch: 'full'},
       {path:'products', component:ProductsComponent},
       {path:'shopping-cart', component:ShoppingCartComponent},
-      {path:'check-out', component:CheckOutComponent},
-      {path:'order-success', component:OrderSuccessComponent},
+      {path:'check-out', component:CheckOutComponent, canActivate:[AuthGuard]},
+      {path:'order-success', component:OrderSuccessComponent, canActivate:[AuthGuard]},
       {path:'login', component:LoginComponent},
-      {path:'admin/products', component:AdminProductsComponent},
-      {path:'admin/orders', component:AdminOrdersComponent},
-      {path:'my/orders', component:MyOrdersComponent}
+      {path:'admin/products', component:AdminProductsComponent, canActivate:[AuthGuard]},
+      {path:'admin/orders', component:AdminOrdersComponent, canActivate:[AuthGuard, AdminAuthGuard]},
+      {path:'my/orders', component:MyOrdersComponent, canActivate:[AuthGuard, AdminAuthGuard]}
 
     ])
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard,
+    UserService,
+    AdminAuthGuard
   ],
   bootstrap: [AppComponent]
 })

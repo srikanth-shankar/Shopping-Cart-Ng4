@@ -2,6 +2,7 @@ import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent {
 
-  constructor(private as:AuthService) { }
+  constructor(private as:AuthService){}
 
   login(){
     this.as.login();
